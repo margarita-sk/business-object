@@ -1,18 +1,12 @@
-plugins {
-    id 'org.springframework.boot' version '2.4.5'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'java'
-    id 'maven'
-}
+apply plugin: 'java'
+apply plugin: 'maven'
 
 group = 'com.github.margarita-sk'
-version = '0.0.1'
-sourceCompatibility = '11'
+sourceCompatibility = 1.8 // java 8
+targetCompatibility = 1.8
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -20,9 +14,25 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 }
 
-repositories {
-    mavenCentral()
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+wrapper {
+    gradleVersion = "6.1.1"
+    distributionType = Wrapper.DistributionType.ALL
 }
