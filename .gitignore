@@ -1,8 +1,0 @@
-build/
-.gradle
-.idea
-business-object.iml
-gradlew
-gradlew.bat
-!gradle/wrapper/gradle-wrapper.jar
-!build.gradle
