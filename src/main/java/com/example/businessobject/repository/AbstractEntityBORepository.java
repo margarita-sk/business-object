@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
@@ -39,17 +44,17 @@ abstract class AbstractEntityBORepository<T extends AbstractEntityBO> implements
 
     @Override
     public List<T> find(Map<String, String> parameters) {
-        var criteriaBuilder = entityManager.getCriteriaBuilder();
-        var criteriaQuery = criteriaBuilder.createQuery(clazz);
-        var root = criteriaQuery.from(clazz);
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery criteriaQuery = criteriaBuilder.createQuery(clazz);
+        Root root = criteriaQuery.from(clazz);
 
         parameters.forEach((key, value) -> {
-            var predicate = criteriaBuilder.equal(root.get(key), value);
+            Predicate predicate = criteriaBuilder.equal(root.get(key), value);
             criteriaQuery.where(predicate);
         });
 
-        var typedQuery = entityManager.createQuery(criteriaQuery);
-        var resultList = typedQuery.getResultList();
+        TypedQuery typedQuery = entityManager.createQuery(criteriaQuery);
+        List resultList = typedQuery.getResultList();
         return resultList;
     }
 
