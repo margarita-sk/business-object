@@ -2,6 +2,7 @@ package com.example.businessobject.repository;
 
 import com.example.businessobject.bo.AbstractEntityBO;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -9,15 +10,14 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Map;
 
-@AllArgsConstructor
 abstract class AbstractEntityBORepository<T extends AbstractEntityBO> implements BORepository<T> {
 
     private final EntityManager entityManager;
     private Class<T> clazz;
 
-    @PostConstruct
-    public void init() {
-        clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    public AbstractEntityBORepository(EntityManager entityManager){
+        this.entityManager = entityManager;
+        this.clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
     @Override

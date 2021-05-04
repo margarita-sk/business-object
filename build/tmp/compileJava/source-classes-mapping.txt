@@ -1,0 +1,10 @@
+com/example/businessobject/repository/BORepository.java
+ com.example.businessobject.repository.BORepository
+com/example/businessobject/Application.java
+ com.example.businessobject.Application
+com/example/businessobject/repository/AbstractEntityBORepository.java
+ com.example.businessobject.repository.AbstractEntityBORepository
+com/example/businessobject/bo/AbstractEntityBO.java
+ com.example.businessobject.bo.AbstractEntityBO
+com/example/businessobject/bo/BusinessObject.java
+ com.example.businessobject.bo.BusinessObject
