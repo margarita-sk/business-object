@@ -8,6 +8,7 @@ plugins {
 group = 'com.github.jitpack'
 
 sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
   mavenCentral()
